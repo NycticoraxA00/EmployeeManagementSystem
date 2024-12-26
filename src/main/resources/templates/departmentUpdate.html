@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Department</title>
+    <link rel="stylesheet" th:href="@{/css/style.css?version=51}">
+
+</head>
+<body>
+<div class="content" layout:fragment="content">
+    <h2>UPDATE DEPARTMENT</h2>
+    <form method="post" th:action="'/department/save'">
+        <input type="hidden" th:field="${department.departmentId}"/>
+        <div class="control-group">
+            <label>Department name:</label>
+            <input type="text" th:field="${department.departmentName}"/>
+            <div th:if="${#fields.hasErrors('department.departmentName')}"
+                 th:errorclass="error" th:errors="${department.departmentName}"/>
+        </div>
+        <div class="control-group">
+            <label>Department Address:</label>
+            <input type="text" th:field="*{department.departmentAddress}" required/>
+            <div th:if="${#fields.hasErrors('department.departmentAddress')}"
+                 th:errorclass="error" th:errors="*{department.departmentAddress}"/>
+        </div>
+        <div class="control-group">
+            <label>Department Email:</label>
+            <input type="email" th:field="*{department.departmentEmail}" required/>
+            <div th:if="${#fields.hasErrors('department.departmentEmail')}"
+                 th:errorclass="error" th:errors="*{department.departmentEmail}"/>
+        </div>
+        <div class="control-group">
+            <label>Department Establishment Year:</label>
+            <input type="number" th:field="*{department.departmentEstablishmentYear}" required min="1900" max="2100"/>
+            <div th:if="${#fields.hasErrors('department.departmentEstablishmentYear')}"
+                 th:errorclass="error" th:errors="*{department.departmentEstablishmentYear}"/>
+        </div>
+        <div class="control-group">
+            <label>Department Phone Number:</label>
+            <input type="tel" th:field="*{department.departmentPhoneNumber}" pattern="[0-9]{10}" placeholder="10-digit phone number" required/>
+            <div th:if="${#fields.hasErrors('department.departmentPhoneNumber')}"
+                 th:errorclass="error" th:errors="*{department.departmentPhoneNumber}"/>
+        </div>
+        <div class="control-group">
+            <button type="submit">UPDATE</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

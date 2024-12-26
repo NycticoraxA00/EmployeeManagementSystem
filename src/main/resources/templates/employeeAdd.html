@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Employee</title>
+    <link rel="stylesheet" th:href="@{/css/style.css?version=51}">
+
+</head>
+<body>
+<div class="content" layout:fragment="content">
+    <h2>ADD EMPLOYEE</h2>
+    <form th:action="'/employee/insert'" th:object="${employee}" method="post">
+
+        <div class="control-group">
+            <label>Employee Name: </label>
+            <input type="text" th:field="*{employeeName}" required/>
+            <div th:if="${#fields.hasErrors('employeeName')}"
+                 th:errorclass="error" th:errors="*{employeeName}"/>
+        </div>
+
+        <div class="control-group">
+            <label>Employee Age: </label>
+            <input type="number" th:field="*{employeeAge}" min="18" max="65" required/>
+            <div th:if="${#fields.hasErrors('employeeAge')}"
+                 th:errorclass="error" th:errors="*{employeeAge}"/>
+        </div>
+
+        <div class="control-group">
+            <label>Employee Gender:</label>
+            <select th:field="*{employeeGender}" required>
+                <option th:value="'Male'" th:text="'Male'">Male</option>
+                <option th:value="'Female'" th:text="'Female'">Female</option>
+            </select>
+            <div th:if="${#fields.hasErrors('employeeGender')}"
+                 th:errorclass="error" th:errors="*{employeeGender}"/>
+        </div>
+
+        <div class="control-group">
+            <label>Employee Address: </label>
+            <input type="text" th:field="*{employeeAddress}" required/>
+            <div th:if="${#fields.hasErrors('employeeAddress')}"
+                 th:errorclass="error" th:errors="*{employeeAddress}"/>
+        </div>
+
+        <div class="control-group">
+            <label>Employee Phone: </label>
+            <input type="tel" th:field="*{employeePhone}" pattern="[0-9]{10}" placeholder="10-digit phone number" required/>
+            <div th:if="${#fields.hasErrors('employeePhone')}"
+                 th:errorclass="error" th:errors="*{employeePhone}"/>
+        </div>
+
+        <div class="control-group">
+            <label>Employee Salary: </label>
+            <input type="number" th:field="*{employeeSalary}" step="0.01" min="0" required/>
+            <div th:if="${#fields.hasErrors('employeeSalary')}"
+                 th:errorclass="error" th:errors="*{employeeSalary}"/>
+        </div>
+
+        <div class="control-group">
+            <label>Department: </label>
+            <select th:field="*{department}" required>
+                <option th:each="dept : ${departments}"
+                        th:value="${dept.departmentId}"
+                        th:text="${dept.departmentName}"/>
+            </select>
+            <div th:if="${#fields.hasErrors('department')}"
+                 th:errorclass="error" th:errors="*{department}"/>
+        </div>
+
+        <div class="control-group">
+            <button type="submit">ADD</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

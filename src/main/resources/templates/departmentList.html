@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Department List</title>
+    <link rel="stylesheet" th:href="@{static/css/style.css}">
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>DEPARTMENT LIST</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Establish Year</th>
+            <th>Phone Number</th>
+            <th>Employee Count</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="department : ${departments}">
+            <td th:text="${department.departmentId}"/>
+            <td>
+                <a class="clickable" th:href="'/department/' + ${department.departmentId}" th:text="${department.departmentName}"/>
+            </td>
+            <td th:text="${department.departmentAddress}"/>
+            <td th:text="${department.departmentEmail}"/>
+            <td th:text="${department.departmentEstablishmentYear}"/>
+            <td th:text="${department.departmentPhoneNumber}"/>
+            <td th:text="${department.departmentEmployeeCount}"/>
+            <td><a class="clickable" th:href="'/department/update/' + ${department.departmentId}">UPDATE</a></td>
+            <td><a class="delete" th:href="'/department/delete/' + ${department.departmentId}">DELETE</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

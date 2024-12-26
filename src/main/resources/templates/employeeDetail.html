@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Detail</title>
+    <link rel="stylesheet" th:href="@{/css/style.css?version=51}">
+
+</head>
+<body>
+<div class="detail" layout:fragment="content">
+    <h1>EMPLOYEE DETAIL</h1>
+    <div>
+        <h2 th:text="${employee.employeeName}"/>
+        <p th:text="'Address: ' + ${employee.employeeAddress}"/>
+        <p th:text="'Age: ' + ${employee.employeeAge}"/>
+        <p th:text="'Gender: ' + ${employee.employeeGender}"/>
+        <p th:text="'Phone Number: ' + ${employee.employeePhone}"/>
+        <p th:text="'Department: ' + ${employee.getDepartment()}"/>
+    </div>
+
+</div>
+</body>
+</html>

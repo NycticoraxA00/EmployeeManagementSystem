@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee List</title>
+    <link rel="stylesheet" th:href="@{static/css/style.css}">
+    <script>
+        window.addEventListener("load", function () {
+            let departmentId = [[${departmentId}]];
+            let sortMode = [[${sortMode}]];
+
+            function filterRedirect() {
+                window.location.href =
+                    "/employee/list?department=" + departmentId +
+                    "&sort=" + sortMode;
+            }
+
+            const departmentFilter = document.getElementById("filterDepartment");
+            departmentFilter.value = departmentId;
+            departmentFilter.addEventListener("change", function () {
+                departmentId = departmentFilter.value;
+                filterRedirect();
+            });
+
+            const sortMenu = document.getElementById("sortOptions");
+            sortMenu.value = sortMode;
+            sortMenu.addEventListener("change", function () {
+                sortMode = sortMenu.value;
+                filterRedirect();
+            });
+        });
+    </script>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>EMPLOYEE LIST</h2>
+    <div class="filterContainer">
+        Department:
+        <select id="filterDepartment">
+            <option value="0">All departments</option>
+            <option th:each="department : ${departments}"
+                    th:value="${department.departmentId}"
+                    th:text="${department.departmentName}"></option>
+        </select>
+        Sort:
+        <select id="sortOptions">
+            <option value="1">Latest Update</option>
+            <option value="2">Oldest Update</option>
+            <option value="3">By name ASC</option>
+            <option value="4">By name DESC</option>
+            <option value="5">By age ASC</option>
+            <option value="6">By age DESC</option>
+            <option value="7">By salary ASC</option>
+            <option value="8">By salary DESC</option>
+        </select>
+    </div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Phone Number</th>
+            <th>Salary</th>
+            <th>Department</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.employeeId}"></td>
+            <td>
+                <a class="clickable" th:href="@{/employee/{id}(id=${employee.employeeId})}" th:text="${employee.employeeName}"></a>
+            </td>
+            <td th:text="${employee.employeeAddress}"></td>
+            <td th:text="${employee.employeeAge}"></td>
+            <td th:text="${employee.employeeGender}"></td>
+            <td th:text="${employee.employeePhone}"></td>
+            <td th:text="${employee.employeeSalary}"></td>
+            <td>
+                <a class="clickable" th:href="@{/department/{id}(id=${employee.department.departmentId})}"
+                   th:text="${employee.department.departmentName}"></a>
+            </td>
+            <td><a class="clickable" th:href="@{/employee/update/{id}(id=${employee.employeeId})}">UPDATE</a></td>
+            <td><a class="delete" th:href="@{/employee/delete/{id}(id=${employee.employeeId})}">DELETE</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
